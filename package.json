@@ -1,32 +1,39 @@
 {
-  "name": "am-tap-dot",
-  "version": "1.0.1",
-  "description": "Human-readable TAP reporter",
+  "name": "tap-dance",
+  "version": "0.0.1",
+  "description": "a quick human-readable TAP test-reporter",
   "keywords": [
     "reporter",
     "tap",
     "tape"
   ],
-  "homepage": "https://github.com/amokrushin/am-tap-dot#readme",
+  "homepage": "https://github.com/spencermountain/tap-dance#readme",
   "bugs": {
-    "url": "https://github.com/amokrushin/am-tap-dot/issues"
+    "url": "https://github.com/spencermountain/tap-dance/issues"
   },
   "license": "MIT",
-  "author": "Anton Mokrushin <anton@mokr.org> (mokr.org)",
-  "main": "index.js",
+  "author": "Anton Mokrushin <anton@mokr.org> + spencermountain@gmail.com",
+  "main": "./src/index.js",
   "bin": {
-    "am-tap-dot": "./bin/cmd.js"
+    "tap-dance": "./bin/cmd.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/amokrushin/am-tap-dot.git"
+    "url": "git+https://github.com/spencermountain/tap-dance.git"
   },
   "scripts": {
-    "test": "exit 0"
+    "test": "exit 0",
+    "build": "./node_modules/.bin/babel ./src/index.js -o ./builds/tap-dance.js"
   },
   "dependencies": {
-    "chalk": "^1.1.3",
+    "chalk": "2.4.0",
     "lodash": "^4.17.2",
     "tap-out": "^1.4.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-minify": "^0.4.0",
+    "tape": "^4.9.0"
   }
 }

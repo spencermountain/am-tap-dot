@@ -1,58 +1,40 @@
-# am-tap-dot 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amokrushin/am-tap-dot/master/LICENSE)
+A TAP test-reporter for nodejs, like [tap-dot](https://github.com/scottcorgan/tap-dot), but with more information about failures, and where to find them.
 
-Human-readable dots style TAP reporter
+based on [am-tap-dot](http://github.com/amokrushin/am-tap-dot) by [amokrushin](https://github.com/amokrushin). (Thanks!)
 
-**Passed tests**
-<p align="center">
-    <img src="http://i.imgur.com/H22GKqW.png" alt="Passed tests"/>
-</p>
-
-**Failed tests**
-<p align="center">
-    <img src="http://i.imgur.com/jQd8NSH.png" alt="Failed tests"/>
-</p>
-
-## Install
- 
-```
+```bash
 # local
-npm i am-tap-dot -D
+npm i tap-dance --save-dev
 
 # global
-npm i am-tap-dot -g
+npm i tap-dance -g
 ```
- 
-## Usage
 
-### Streaming
-
+### API
 ```js
 const test = require('tape');
-const { amTapDot } = require('am-tap-dot');
+const TapDance = require('tap-dance');
 
 test.createStream()
-    .pipe(amTapDot())
+    .pipe(new TapDance())
     .pipe(process.stdout);
 ```
 
-### CLI
-
-**package.json**
+### Command-line
+```bash
+tape test/index.js | node_modules/.bin/tap-dance
+```
+or in **package.json**,
 
 ```json
 {
   "name": "module-name",
   "scripts": {
-    "test": "node ./test/tap-test.js | am-tap-dot"
+    "test": "node ./test/tap-test.js | tap-dance"
   }
 }
 ```
 
 Then run with `npm test`
- 
-**Terminal**
 
-```
-tape test/index.js | node_modules/.bin/am-tap-dot
-``` 
+MIT
