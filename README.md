@@ -1,4 +1,4 @@
-A TAP test-reporter for nodejs, like [tap-dot](https://github.com/scottcorgan/tap-dot), but with more information about failures, and where to find them.
+like [tap-dot](https://github.com/scottcorgan/tap-dot), but with more information about failures, and where to find them.
 
 based on [am-tap-dot](http://github.com/amokrushin/am-tap-dot) by [amokrushin](https://github.com/amokrushin). (Thanks!)
 
