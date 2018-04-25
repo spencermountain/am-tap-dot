@@ -28,7 +28,7 @@ test.createStream()
 
 ### Command-line
 ```bash
-tape test/index.js | node_modules/.bin/tap-dancer
+tape test/index.js | node_modules/.bin/tap-dancer --color
 ```
 or in **package.json**,
 
@@ -36,7 +36,7 @@ or in **package.json**,
 {
   "name": "module-name",
   "scripts": {
-    "test": "node ./test/tap-test.js | tap-dancer"
+    "test": "node ./test/tap-test.js | tap-dancer --color"
   }
 }
 ```

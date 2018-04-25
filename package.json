@@ -1,6 +1,6 @@
 {
   "name": "tap-dancer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "a quick human-readable TAP test-reporter",
   "keywords": [
     "reporter",
@@ -15,7 +15,7 @@
   "author": "Anton Mokrushin <anton@mokr.org> + spencermountain@gmail.com",
   "main": "./src/index.js",
   "bin": {
-    "tap-dance": "./bin/cmd.js"
+    "tap-dancer": "./bin/cmd.js"
   },
   "repository": {
     "type": "git",
