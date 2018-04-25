@@ -2,6 +2,12 @@ A TAP test-reporter for nodejs, like [tap-dot](https://github.com/scottcorgan/ta
 
 based on [am-tap-dot](http://github.com/amokrushin/am-tap-dot) by [amokrushin](https://github.com/amokrushin). (Thanks!)
 
+![image](https://user-images.githubusercontent.com/399657/39227440-9716c02a-4826-11e8-872e-4c1ad674446e.png)
+
+---
+
+![image](https://user-images.githubusercontent.com/399657/39227411-7038874a-4826-11e8-8907-de7fbf68ec05.png)
+
 ```bash
 # local
 npm i tap-dance --save-dev
