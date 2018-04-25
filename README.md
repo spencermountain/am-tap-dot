@@ -10,16 +10,16 @@ based on [am-tap-dot](http://github.com/amokrushin/am-tap-dot) by [amokrushin](h
 
 ```bash
 # local
-npm i tap-dance --save-dev
+npm i tap-dancer --save-dev
 
 # global
-npm i tap-dance -g
+npm i tap-dancer -g
 ```
 
 ### API
 ```js
 const test = require('tape');
-const TapDance = require('tap-dance');
+const TapDance = require('tap-dancer');
 
 test.createStream()
     .pipe(new TapDance())
@@ -28,7 +28,7 @@ test.createStream()
 
 ### Command-line
 ```bash
-tape test/index.js | node_modules/.bin/tap-dance
+tape test/index.js | node_modules/.bin/tap-dancer
 ```
 or in **package.json**,
 
@@ -36,7 +36,7 @@ or in **package.json**,
 {
   "name": "module-name",
   "scripts": {
-    "test": "node ./test/tap-test.js | tap-dance"
+    "test": "node ./test/tap-test.js | tap-dancer"
   }
 }
 ```
