@@ -73,6 +73,10 @@ class TapDance extends Transform {
             let shortPath = test[0].error.at.file.replace(/^.+test\//, '');
             shortPath = path.relative(process.cwd(), shortPath);
             shortPath = './' + shortPath
+            const line = test[0].error.at.line;
+            if (line || line === 0) {
+              shortPath += ':' + line
+            }
             this.outLine(`${chalk.red('x')} ${chalk.white(chalk.underline(testName))}   ${chalk.grey(shortPath)}`);
             this.outLine();
             _.forEach(test, assertion => {

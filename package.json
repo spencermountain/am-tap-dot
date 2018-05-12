@@ -1,6 +1,6 @@
 {
   "name": "tap-dancer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "a quick human-readable TAP test-reporter",
   "keywords": [
     "reporter",
