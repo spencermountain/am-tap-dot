@@ -1,6 +1,6 @@
 {
   "name": "tap-dancer",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "a quick human-readable TAP test-reporter",
   "keywords": [
     "reporter",
@@ -12,10 +12,10 @@
     "url": "https://github.com/spencermountain/tap-dance/issues"
   },
   "license": "MIT",
-  "author": "Anton Mokrushin <anton@mokr.org> + spencermountain@gmail.com",
+  "author": "spencermountain@gmail.com",
   "main": "./src/index.js",
   "bin": {
-    "tap-dancer": "./bin/cmd.js"
+    "tap-dancer": "./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "chalk": "2.4.0",
-    "lodash": "^4.17.2",
+    "stacktrace-parser": "^0.1.4",
     "tap-out": "^1.4.2"
   },
   "devDependencies": {

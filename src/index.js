@@ -1,150 +1,69 @@
-const Transform = require('stream').Transform
-const parser = require('tap-out');
+#!/usr/bin/env node
+const tapOut = require('tap-out');
 const chalk = require('chalk');
-const path = require('path');
-const _ = require('lodash');
-const PAD = '  '
-const icons = {
-  failure: chalk.red(process.platform === 'linux' ? '✘' : 'x'),
-  success: chalk.green(process.platform === 'linux' ? '•' : '.'),
-}
-//add commas to numbers
-const pretty = (x) => {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
+const fns = require('./fns');
+// const stacktraceParser = require('stacktrace-parser').parse;
 
-function padRight(pad, str) {
-  if (typeof str === 'undefined') {
-    return pad;
+const dot = chalk.green('•');
+
+const failures = [];
+let passed = 0;
+const start = Date.now();
+//start us off
+console.log('\n');
+
+// const parse
+
+const listFailures = function() {
+  failures.forEach((obj, i) => {
+    console.log('');
+    // let stack = stacktraceParser(obj.error.stack);
+    // console.log(stack);
+    console.log(chalk.red(`   #${i} ${chalk.red('- ' + obj.name + ' -')}`));
+    let msg = '';
+    msg += chalk.cyan(`           ${"'" + obj.error.actual + "'"}`);
+    msg += '\n';
+    msg += chalk.grey(`     want: `) + chalk.magenta(`${"'" + obj.error.expected + "'"}`);
+    console.log(msg);
+  });
+};
+
+//callback
+const done = function() {
+  if (failures.length === 0) {
+    const time = fns.duration(start);
+    console.log(chalk.gray(' ✔️     ' + time + 's'));
+    process.exit(0);
+  } else {
+    let noun = failures.length === 1 ? 'failure' : 'failures';
+    listFailures();
+    console.log('\n');
+    console.log('           ' + chalk.grey(fns.niceNumber(passed) + ' passed'));
+    console.log(chalk.red(`  ◠◡◜◠◡-◡    ${fns.niceNumber(failures.length)} ${noun}   `));
+    process.exit(1);
   }
-  return (str + pad).substring(0, pad.length);
-}
+};
 
-class TapDance extends Transform {
-  constructor() {
-    super();
-    this.parser = parser();
-    this.extra = [];
-    this.assertCount = 0;
-    this.timestamp = Date.now();
-    this.failed = false;
+const t = tapOut(done);
 
-    this.outLine();
-
-    this.parser.on('assert', res => {
-      if (res.ok) {
-        this.push(icons.success);
-      } else {
-        this.push(icons.failure);
-        this.failed = true;
-      }
-      this.assertCount++;
-    });
-
-    this.parser.on('extra', str => {
-      if (str !== '') this.extra.push(str);
-    });
-
-    this.on('finish', () => this.parser.end());
-  }
-
-  _transform(chunk, encoding, cb) {
-    this.parser.write(chunk, encoding, cb);
-  }
-
-  _flush(callback) {
-    this.parser.on('output', result => {
-      if ((result.fail && result.fail.length) || this.assertCount === 0) {
-        this.outSpacer(2);
-        this.outputExtra();
-        this.statsOutput(result);
-        this.outSpacer(2);
-
-        this.outLine();
-        _(result.fail)
-          .map(a => _.defaults({
-            test: _.find(result.tests, ['number', a.test])
-          }, a))
-          .groupBy(a => a.test.number)
-
-          .forEach(test => {
-            const testName = test[0].test.name;
-            //print the path to the test
-            let shortPath = test[0].error.at.file.replace(/^.+test\//, '');
-            shortPath = path.relative(process.cwd(), shortPath);
-            shortPath = './' + shortPath
-            const line = test[0].error.at.line;
-            if (line || line === 0) {
-              shortPath += ':' + line
-            }
-            this.outLine(`${chalk.red('x')} ${chalk.white(chalk.underline(testName))}   ${chalk.grey(shortPath)}`);
-            this.outLine();
-            _.forEach(test, assertion => {
-              let name = (assertion.name || '')
-              name = padRight('                        ', name);
-              this.push(chalk.white(`    ${chalk.red('-')} ${name}`));
-              let actual = assertion.error.actual
-              if (typeof actual === 'string' && actual.length > 100) {
-                actual = actual.substr(0, 100) + '..'
-              }
-              this.push(chalk.gray(`    - got: ${chalk.magenta('"' + actual + '"')}`));
-              this.outLine();
-            });
-            this.outLine();
-          });
-        this.outLine();
-      } else {
-        this.outSpacer(2);
-        this.statsOutput(result);
-        this.outLine();
-        this.outLine();
-      }
-      callback();
-    });
-  }
-
-  outputExtra() {
-    this.push(this.extra.join('\n'));
-  }
-
-  outPush(str = '', color = 'white') {
-    this.push(`${PAD}${chalk[color](str)}`);
-  }
-
-  outLine(str = '', color = 'white') {
-    this.outPush(`${str}
-`, color);
-  }
-
-  outSpacer(num = 1) {
-    this.push('\n'.repeat(num));
-  }
-
-  statsOutput(res) {
-    const time = ((Date.now() - this.timestamp) / 1000).toFixed(2);
-    const assertTotal = pretty(res.asserts.length);
-    const assertPass = pretty(res.pass.length);
-    const assertFail = res.fail.length
-
-    //amount correct
-    let line1 = `${PAD}${chalk.green(assertPass)} of ${assertTotal}`
-    this.push(line1)
-
-    this.outLine();
-
-    //print time if passed
-    if (assertFail === 0) {
-      let line2 = PAD
-      line2 += chalk.gray(' ✔️     ' + time + 's')
-      this.push(line2)
-    } else {
-      let noun = 'failure'
-      if (assertFail > 1) {
-        noun = 'failures'
-      }
-      this.outLine(`${pretty(assertFail)} ${noun} ◠◡◜◠◡-◡◜`, 'red');
+t.on('assert', function(assert) {
+  if (assert.ok === true) {
+    if (failures.length === 0) {
+      process.stdout.write(dot);
     }
+    passed += 1;
+  } else { //failures
+    if (failures.length === 0) { //first failure
+      process.stdout.write(chalk.red(` ✘  (${assert.name})`) + '\n');
+      console.log(chalk.red('          . . .'));
+    }
+    failures.push(assert);
   }
-}
+});
 
-module.exports = TapDance
+//support console.logs
+t.on('comment', function(comment) {
+  console.log(comment.raw);
+});
+
+process.stdin.pipe(t);
