@@ -1,6 +1,6 @@
 {
   "name": "tap-dancer",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a quick human-readable TAP test-reporter",
   "keywords": [
     "reporter",
@@ -26,14 +26,14 @@
     "build": "./node_modules/.bin/babel ./src/index.js -o ./builds/tap-dance.js"
   },
   "dependencies": {
-    "chalk": "2.4.0",
-    "stacktrace-parser": "^0.1.4",
-    "tap-out": "^1.4.2"
+    "chalk": "2.4.1",
+    "stacktrace-parser": "0.1.4",
+    "tap-out": "3.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-minify": "^0.4.0",
-    "tape": "^4.9.0"
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-minify": "^0.5.0",
+    "tape": "4.9.1"
   }
 }
