@@ -1,11 +1,6 @@
-const exec = require('child_process').execSync;
-const path = "~/nlp/nlp-compromise/tests/unit/**/*.test.js"
-
-var tape = 'node_modules/.bin/tape';
-var tapDance = './bin/cmd.js';
-// var tapDance = '"node_modules/.bin/tap-dance"';
+const exec = require('shelljs').exec;
 
 //the quotations here are strangely-important
-let cmd = `"${tape}" "${path}" | "${tapDance}"`
+let cmd = `tape ~/mountain/nlp-compromise/test/unit/**/*.test.js | ./src/index.js`
 console.log(cmd)
 exec(cmd);

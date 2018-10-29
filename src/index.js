@@ -32,7 +32,9 @@ const listFailures = function() {
 const done = function() {
   if (failures.length === 0) {
     const time = fns.duration(start);
-    console.log(chalk.gray(' ✔️     ' + time + 's'));
+    console.log('')
+    console.log('   ' + chalk.grey(time + 's'))
+    console.log(chalk.green('   ' + fns.niceNumber(passed) + '  ✔️'));
     process.exit(0);
   } else {
     let noun = failures.length === 1 ? 'failure' : 'failures';
