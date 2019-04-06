@@ -17,19 +17,23 @@ npm i tap-dancer -g
 ```
 
 ### API
-```js
-const test = require('tape');
-const TapDance = require('tap-dancer');
 
-test.createStream()
-    .pipe(new TapDance())
-    .pipe(process.stdout);
+```js
+const test = require('tape')
+const TapDance = require('tap-dancer')
+
+test
+  .createStream()
+  .pipe(new TapDance())
+  .pipe(process.stdout)
 ```
 
 ### Command-line
+
 ```bash
 tape test/index.js | node_modules/.bin/tap-dancer --color
 ```
+
 or in **package.json**,
 
 ```json
