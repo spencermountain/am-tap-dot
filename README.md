@@ -47,4 +47,11 @@ or in **package.json**,
 
 Then run with `npm test`
 
+### Options
+**-nofail** - always return an arror code of 0, even when tests pass
+`node ./tap-test.js | tap-dancer -nofail`
+
+**-noreport** - don't list-out all the mistakes.
+`node ./tap-test.js | tap-dancer -noreport`
+
 MIT
