@@ -1,6 +1,6 @@
 {
   "name": "tap-dancer",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "a quick human-readable test-reporter for Tap",
   "author": "spencermountain@gmail.com",
   "main": "./src/index.js",
@@ -25,7 +25,7 @@
     "url": "https://github.com/spencermountain/tap-dance/issues"
   },
   "dependencies": {
-    "chalk": "2.4.2",
+    "chalk": "4.1.0",
     "tap-out": "3.0.0"
   },
   "devDependencies": {},

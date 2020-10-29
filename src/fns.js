@@ -1,11 +1,9 @@
-'use strict'
-
 //add commas to numbers
-const niceNumber = x => {
+const niceNumber = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-const pad = function(str, width, char) {
+const pad = function (str, width, char) {
   char = char || ' '
   str = str.toString()
   while (str.length < width) {
@@ -14,7 +12,7 @@ const pad = function(str, width, char) {
   return str
 }
 
-const nicePath = abs => {
+const nicePath = (abs) => {
   //print the path to the test
   let shortPath = abs.replace(/^.+test\//, '')
   shortPath = path.relative(process.cwd(), shortPath)
@@ -26,7 +24,7 @@ const nicePath = abs => {
   return shortPath
 }
 
-const duration = start => {
+const duration = (start) => {
   return ((Date.now() - start) / 1000).toFixed(2)
 }
 
@@ -34,5 +32,5 @@ module.exports = {
   niceNumber: niceNumber,
   pad: pad,
   nicePath: nicePath,
-  duration: duration
+  duration: duration,
 }

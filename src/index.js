@@ -90,7 +90,7 @@ t.on('assert', function (assert) {
     passed += 1
   } else {
     //failures
-    process.stdout.write(chalk.red(`×`))
+    process.stdout.write(chalk.red(`✗`))
     failures.push(assert)
   }
 })
