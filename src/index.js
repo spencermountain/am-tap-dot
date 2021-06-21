@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 'use strict'
-const tapOut = require('tap-out')
+const tapIn = require('tap-in')
 const chalk = require('chalk')
 const fns = require('./fns')
 const dot = chalk.green('•')
@@ -9,7 +9,7 @@ let cfg = {
   nofail: false,
   noreport: false,
 }
-process.argv.forEach((arg) => {
+process.argv.forEach(arg => {
   if (arg === '-nofail') {
     cfg.nofail = true
   }
@@ -38,9 +38,7 @@ const longList = function () {
     let msg = ''
     msg += chalk.cyan(`             ${"'" + obj.error.actual + "'"}`)
     msg += '\n'
-    msg +=
-      chalk.grey(`       want: `) +
-      chalk.magenta(`${"'" + obj.error.expected + "'"}`)
+    msg += chalk.grey(`       want: `) + chalk.magenta(`${"'" + obj.error.expected + "'"}`)
     console.log(msg)
   })
 }
@@ -70,9 +68,7 @@ const done = function () {
     }
     console.log('\n')
     console.log('           ' + chalk.grey(fns.niceNumber(passed) + ' passed'))
-    console.log(
-      chalk.red(`  ◠◡◜◠◡-◡    ${fns.niceNumber(failures.length)} ${noun}   `)
-    )
+    console.log(chalk.red(`  ◠◡◜◠◡-◡    ${fns.niceNumber(failures.length)} ${noun}   `))
     console.log('')
     // we should show the errors, but return a success
     if (cfg.nofail) {
@@ -82,7 +78,7 @@ const done = function () {
   }
 }
 
-const t = tapOut(done)
+const t = tapIn(done)
 
 t.on('assert', function (assert) {
   if (assert.ok === true) {
