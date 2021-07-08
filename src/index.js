@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 'use strict'
 const tapIn = require('tap-in')
-const chalk = require('chalk')
+const c = require('colorette')
 const fns = require('./fns')
-const dot = chalk.green('•')
+const dot = c.green('•')
 // set configs
 let cfg = {
   nofail: false,
@@ -27,18 +27,18 @@ console.log('\n')
 const shortList = function () {
   failures.forEach((obj, i) => {
     console.log('')
-    console.log(chalk.red(`   #${i} ${chalk.red('- ' + obj.name + ' -')}`))
+    console.log(c.red(`   #${i} ${c.red('- ' + obj.name + ' -')}`))
   })
 }
 
 const longList = function () {
   failures.forEach((obj, i) => {
     console.log('')
-    console.log(chalk.red(`   #${i} ${chalk.red('- ' + obj.name + ' -')}`))
+    console.log(c.red(`   #${i} ${c.red('- ' + obj.name + ' -')}`))
     let msg = ''
-    msg += chalk.cyan(`             ${"'" + obj.error.actual + "'"}`)
+    msg += c.cyan(`             ${"'" + obj.error.actual + "'"}`)
     msg += '\n'
-    msg += chalk.grey(`       want: `) + chalk.magenta(`${"'" + obj.error.expected + "'"}`)
+    msg += c.gray(`       want: `) + c.magenta(`${"'" + obj.error.expected + "'"}`)
     console.log(msg)
   })
 }
@@ -57,8 +57,8 @@ const done = function () {
   if (failures.length === 0) {
     const time = fns.duration(start)
     console.log('')
-    console.log('   ' + chalk.grey(time + 's'))
-    console.log(chalk.green('   ' + fns.niceNumber(passed) + '  ✔️'))
+    console.log('   ' + c.grey(time + 's'))
+    console.log(c.green('   ' + fns.niceNumber(passed) + '  ✔️'))
     process.exit(0)
   } else {
     let noun = failures.length === 1 ? 'failure' : 'failures'
@@ -67,8 +67,8 @@ const done = function () {
       listFailures()
     }
     console.log('\n')
-    console.log('           ' + chalk.grey(fns.niceNumber(passed) + ' passed'))
-    console.log(chalk.red(`  ◠◡◜◠◡-◡    ${fns.niceNumber(failures.length)} ${noun}   `))
+    console.log('           ' + c.gray(fns.niceNumber(passed) + ' passed'))
+    console.log(c.red(`  ◠◡◜◠◡-◡    ${fns.niceNumber(failures.length)} ${noun}   `))
     console.log('')
     // we should show the errors, but return a success
     if (cfg.nofail) {
@@ -86,7 +86,7 @@ t.on('assert', function (assert) {
     passed += 1
   } else {
     //failures
-    process.stdout.write(chalk.red(`✗`))
+    process.stdout.write(c.red(`✗`))
     failures.push(assert)
   }
 })
