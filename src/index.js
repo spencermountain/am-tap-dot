@@ -57,7 +57,7 @@ const done = function () {
   if (failures.length === 0) {
     const time = fns.duration(start)
     console.log('')
-    console.log('   ' + c.grey(time + 's'))
+    console.log('   ' + c.gray(time + 's'))
     console.log(c.green('   ' + fns.niceNumber(passed) + '  ✔️'))
     process.exit(0)
   } else {
